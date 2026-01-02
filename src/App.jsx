@@ -70,7 +70,8 @@ function App() {
       return;
     }
 
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(textUrl)}`;
+    // Use corsproxy.io as a reliable CORS proxy
+    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(textUrl)}`;
 
     fetch(proxyUrl)
       .then(async (res) => {
@@ -161,11 +162,32 @@ function App() {
 
   const getTextUrl = (book) => {
     const f = book.formats;
-    if (f['text/plain; charset=utf-8']) return f['text/plain; charset=utf-8'];
-    if (f['text/plain; charset=iso-8859-1']) return f['text/plain; charset=iso-8859-1'];
-    if (f['text/plain; charset=us-ascii']) return f['text/plain; charset=us-ascii'];
-    const plainKey = Object.keys(f).find(k => k.startsWith('text/plain'));
-    return plainKey ? f[plainKey] : null;
+    let url = null;
+    
+    // Try to find a text format
+    if (f['text/plain; charset=utf-8']) url = f['text/plain; charset=utf-8'];
+    else if (f['text/plain; charset=iso-8859-1']) url = f['text/plain; charset=iso-8859-1'];
+    else if (f['text/plain; charset=us-ascii']) url = f['text/plain; charset=us-ascii'];
+    else {
+      const plainKey = Object.keys(f).find(k => k.startsWith('text/plain'));
+      url = plainKey ? f[plainKey] : null;
+    }
+    
+    if (!url) return null;
+    
+    // Fix Gutenberg URLs - convert /ebooks/ID.txt.utf-8 to /files/ID/ID-0.txt
+    const ebookMatch = url.match(/\/ebooks\/(\d+)\.txt/);
+    if (ebookMatch) {
+      const id = ebookMatch[1];
+      url = `https://www.gutenberg.org/files/${id}/${id}-0.txt`;
+    }
+    
+    // Convert www.gutenberg.org to gutenberg.org for better CORS
+    if (url.includes('www.gutenberg.org')) {
+      url = url.replace('www.gutenberg.org', 'gutenberg.org');
+    }
+    
+    return url;
   };
 
   const getAuthors = (book) => {
