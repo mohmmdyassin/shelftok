@@ -2,524 +2,429 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Heart, MessageCircle, Share2, BookmarkPlus, ChevronDown } from 'lucide-react';
 const quotes = [
   {
-    quote: "While Copernicus convinced us to believe, contrary to all our senses, that the earth does not stand still, Boscovich taught us to renounce belief in the last bit of earth that did 'stand still,' the belief in 'matter,' in the 'material,' in the residual piece of earth and clump of an atom: it was the greatest triumph over the senses that the world had ever known.",
-    author: "Friedrich Nietzsche",
-    book: "Beyond Good and Evil"
+    quote: "بينما أقنعنا كوبرنيكوس بالاعتقاد، خلافًا لجميع حواسنا، بأن الأرض لا تقف ساكنة، علّمنا بوسكوفيتش التخلي عن الاعتقاد في آخر جزء من الأرض الذي كان 'يقف ساكنًا'، الاعتقاد في 'المادة'، في 'المادي'، في القطعة المتبقية من الأرض وكتلة الذرة: كان ذلك أعظم انتصار على الحواس عرفه العالم على الإطلاق.",
+    author: "فريدريك نيتشه",
+    book: "ما وراء الخير والشر"
   },
   {
-    quote: "Around a hero everything becomes a tragedy, around a demi-god everything becomes a satyr play; and around God everything becomes—what do you think? perhaps the 'world'?—",
-    author: "Friedrich Nietzsche",
-    book: "Beyond Good and Evil"
+    quote: "حول البطل يتحول كل شيء إلى مأساة، وحول نصف إله يتحول كل شيء إلى مسرحية ساخرة؛ وحول الله يتحول كل شيء إلى — ماذا تظنون؟ ربما 'العالم'؟—",
+    author: "فريدريك نيتشه",
+    book: "ما وراء الخير والشر"
   },
   {
-    quote: "Whoever despises himself still respects himself as one who despises.",
-    author: "Friedrich Nietzsche",
-    book: "Beyond Good and Evil"
+    quote: "من يحتقر نفسه لا يزال يحترم نفسه كمن يحتقر.",
+    author: "فريدريك نيتشه",
+    book: "ما وراء الخير والشر"
   },
   {
-    quote: "You could never convince a monkey to give you a banana by promising him limitless bananas after death in monkey heaven.",
-    author: "Yuval Noah Harari",
-    book: "Sapiens: A Brief History of Humankind"
+    quote: "لا يمكنك أبدًا إقناع قرد بأن يعطيك موزة بوعده بموز لا محدود بعد الموت في جنة القرود.",
+    author: "يوفال نوح حراري",
+    book: "سابيينس: تاريخ موجز للجنس البشري"
   },
   {
-    quote: "How do you cause people to believe in an imagined order such as Christianity, democracy or capitalism? First, you never admit that the order is imagined.",
-    author: "Yuval Noah Harari",
-    book: "Sapiens: A Brief History of Humankind"
+    quote: "كيف تجعل الناس يؤمنون بنظام متخيل مثل المسيحية أو الديمقراطية أو الرأسمالية؟ أولاً، لا تعترف أبدًا بأن النظام متخيل.",
+    author: "يوفال نوح حراري",
+    book: "سابيينس: تاريخ موجز للجنس البشري"
   },
   {
-    quote: "Culture tends to argue that it forbids only that which is unnatural. But from a biological perspective, nothing is unnatural. Whatever is possible is by definition also natural.",
-    author: "Yuval Noah Harari",
-    book: "Sapiens: A Brief History of Humankind"
+    quote: "تميل الثقافة إلى القول إنها تحظر فقط ما هو غير طبيعي. لكن من منظور بيولوجي، لا شيء غير طبيعي. كل ما هو ممكن فهو بالتعريف طبيعي أيضًا.",
+    author: "يوفال نوح حراري",
+    book: "سابيينس: تاريخ موجز للجنس البشري"
   },
   {
-    quote: "One of history's few iron laws is that luxuries tend to become necessities and to spawn new obligations.",
-    author: "Yuval Noah Harari",
-    book: "Sapiens: A Brief History of Humankind"
+    quote: "إحدى القوانين الحديدية القليلة في التاريخ هي أن الكماليات تميل إلى أن تصبح ضروريات وتولد التزامات جديدة.",
+    author: "يوفال نوح حراري",
+    book: "سابيينس: تاريخ موجز للجنس البشري"
   },
   {
-    quote: "Consistency is the playground of dull minds.",
-    author: "Yuval Noah Harari",
-    book: "Sapiens: A Brief History of Humankind"
+    quote: "الثبات هو ملعب العقول البليدة.",
+    author: "يوفال نوح حراري",
+    book: "سابيينس: تاريخ موجز للجنس البشري"
   },
   {
-    quote: "We did not domesticate wheat. It domesticated us.",
-    author: "Yuval Noah Harari",
-    book: "Sapiens: A Brief History of Humankind"
+    quote: "لم نُدجن القمح. هو الذي دجننا.",
+    author: "يوفال نوح حراري",
+    book: "سابيينس: تاريخ موجز للجنس البشري"
   },
   {
-    quote: "Money is the most universal and most efficient system of mutual trust ever devised.",
-    author: "Yuval Noah Harari",
-    book: "Sapiens: A Brief History of Humankind"
+    quote: "المال هو أكثر نظام عالمي وأكثر كفاءة للثقة المتبادلة تم ابتكاره على الإطلاق.",
+    author: "يوفال نوح حراري",
+    book: "سابيينس: تاريخ موجز للجنس البشري"
   },
   {
-    quote: "Two thousand years of monotheistic brainwashing have caused most Westerners to see polytheism as ignorant and childish idolatry. This is an unjust stereotype.",
-    author: "Yuval Noah Harari",
-    book: "Sapiens: A Brief History of Humankind"
+    quote: "أدى غسيل الدماغ الأحادي لألفي عام إلى جعل معظم الغربيين يرون التعددية الإلهية على أنها عبادة أصنام جاهلة وطفولية. هذا صورة نمطية غير عادلة.",
+    author: "يوفال نوح حراري",
+    book: "سابيينس: تاريخ موجز للجنس البشري"
   },
   {
-    quote: "Words can be like X-rays if you use them properly – they'll go through anything. You read and you're pierced.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "الكلمات يمكن أن تكون كالأشعة السينية إذا استخدمتها بشكل صحيح – فهي تخترق أي شيء. تقرأ وتُخترق.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "But I don't want comfort. I want God, I want poetry, I want real danger, I want freedom, I want goodness. I want sin.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "لكني لا أريد الراحة. أريد الله، أريد الشعر، أريد الخطر الحقيقي، أريد الحرية، أريد الخير. أريد الخطيئة.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Actual happiness always looks pretty squalid in comparison with the overcompensations for misery. Happiness is never grand.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "السعادة الحقيقية تبدو دائمًا بائسة نسبيًا مقارنة بالتعويضات الزائدة عن البؤس. السعادة ليست عظيمة أبدًا.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "If one's different, one's bound to be lonely.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "إذا كان المرء مختلفًا، فهو محكوم عليه بالوحدة.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "I want to know what passion is. I want to feel something strongly.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "أريد أن أعرف ما هي العاطفة. أريد أن أشعر بشيء بقوة.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "One believes things because one has been conditioned to believe them.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "يؤمن المرء بالأشياء لأنه تم تهيئته ليؤمن بها.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "I am I, and I wish I weren't.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "أنا أنا، وأتمنى لو لم أكن.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Most human beings have an almost infinite capacity for taking things for granted.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "لدى معظم البشر قدرة شبه لا نهائية على أخذ الأشياء كأمر مسلم به.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Chronic remorse is a most undesirable sentiment. Rolling in the muck is not the best way of getting clean.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "الندم المزمن شعور غير مرغوب فيه للغاية. التمرغ في الوحل ليس أفضل طريقة للتنظيف.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "I like being myself. Myself and nasty.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "أحب أن أكون نفسي. نفسي وقذرًا.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Most men and women will grow up to love their servitude and will never dream of revolution.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "سيكبر معظم الرجال والنساء ليحبوا عبوديتهم ولن يحلموا أبدًا بالثورة.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "All right then, I'm claiming the right to be unhappy. Not to mention the right to grow old and ugly and impotent; the right to have syphilis and cancer; the right to have too little to eat; the right to be lousy; the right to live in constant apprehension of what may happen tomorrow; the right to catch typhoid; the right to be tortured by unspeakable pains of every kind. I claim them all.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "حسنًا إذن، أنا أطالب بحقي في أن أكون تعيسًا. ناهيك عن الحق في الشيخوخة والقبح والعجز الجنسي؛ الحق في الإصابة بالزهري والسرطان؛ الحق في قلة الطعام؛ الحق في أن أكون قذرًا؛ الحق في العيش في قلق دائم مما قد يحدث غدًا؛ الحق في الإصابة بالتيفوئيد؛ الحق في التعذيب بآلام لا تُوصف من كل نوع. أطالب بها جميعًا.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "No social stability without individual stability.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "لا استقرار اجتماعي بدون استقرار فردي.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "I'd rather be myself. Myself and nasty. Not somebody else, however jolly.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "أفضل أن أكون نفسي. نفسي وقذرًا. لا شخصًا آخر، مهما كان مرحًا.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "I ate civilization. It poisoned me; I was defiled. And then I ate my own wickedness.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "أكلت الحضارة. سمتني؛ تدنست. ثم أكلت شري نفسي.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "A really efficient totalitarian state is one in which people love their servitude.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "الدولة الشمولية الأكثر كفاءة هي تلك التي يحب فيها الناس عبوديتهم.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Reality, however utopian, is something from which people feel the need of taking pretty frequent holidays.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "الواقع، مهما كان مثاليًا، هو شيء يشعر الناس بالحاجة إلى أخذ إجازات متكررة منه.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "People believe in God because they've been conditioned to.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "يؤمن الناس بالله لأنهم تم تهيئتهم ليؤمنوا.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Getting rid of everything unpleasant instead of learning to put up with it is too easy.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "التخلص من كل شيء غير سار بدلاً من تعلم تحمله أمر سهل للغاية.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "One of the principal functions of a friend is to suffer symbolic punishments for us.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "إحدى الوظائف الرئيسية للصديق هي أن يتحمل عقوبات رمزية نيابة عنا.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "A love of nature keeps no factories busy.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "حب الطبيعة لا يبقي المصانع مشغولة.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Great is truth, but still greater is silence about truth.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "عظيم هو الحق، لكن أعظم منه الصمت عن الحق.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "All the advantages of Christianity and alcohol; none of their defects.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "كل مزايا المسيحية والكحول؛ بدون أي من عيوبهما.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "It is natural to believe in God when you're quite alone, in the night, thinking about death.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "من الطبيعي أن يؤمن المرء بالله عندما يكون وحيدًا تمامًا، في الليل، يفكر في الموت.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Ending is better than mending.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "النهاية أفضل من الإصلاح.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "We are not our own masters.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "نحن لسنا سادة أنفسنا.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Men and women must have their adrenals stimulated from time to time.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "يجب تحفيز الغدد الكظرية لدى الرجال والنساء من وقت لآخر.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "We prefer to do things comfortably.",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "نفضل فعل الأشياء براحة.",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Isn't there something in living dangerously?",
-    author: "Aldous Huxley",
-    book: "Brave New World"
+    quote: "أليس هناك شيء في العيش بخطر؟",
+    author: "ألدوس هكسلي",
+    book: "عالم جديد شجاع"
   },
   {
-    quote: "Pain and suffering are always inevitable for a large intelligence and a deep heart. The really great men must, I think, have great sadness on earth.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "الألم والمعاناة لا مفر منهما دائمًا للذكاء الكبير والقلب العميق. يجب أن يكون للرجال العظماء حقًا، أعتقد، حزن كبير على الأرض.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "To go wrong in one's own way is better than to go right in someone else's.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "السير في طريقك الخاطئ أفضل من السير في طريق شخص آخر الصحيح.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "It takes something more than intelligence to act intelligently.",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "يحتاج الأمر إلى شيء أكثر من الذكاء للتصرف بذكاء.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "We sometimes encounter people, even perfect strangers, who begin to interest us at first sight, somehow suddenly, all at once, before a word has been spoken.",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "نصادف أحيانًا أشخاصًا، حتى غرباء تمامًا، يبدأون في إثارة اهتمامنا من النظرة الأولى، فجأة وبشكل مفاجئ، قبل أن تُنطق كلمة واحدة.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "Taking a new step, uttering a new word, is what people fear most.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "اتخاذ خطوة جديدة، أو نطق كلمة جديدة، هو ما يخافه الناس أكثر من أي شيء.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "Your worst sin is that you have destroyed and betrayed yourself for nothing.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "أسوأ خطيئتك هي أنك دمرت وخنت نفسك من أجل لا شيء.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "I used to analyze myself down to the last thread, used to compare myself with others, recalled all the smallest glances, smiles and words of those to whom I'd tried to be frank, interpreted everything in a bad light, laughed viciously at my attempts 'to be like the rest' –and suddenly, in the midst of my laughing, I'd give way to sadness, fall into ludicrous despondency and once again start the whole process all over again – in short, I went round and round like a squirrel on a wheel.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "كنت أحلل نفسي حتى آخر خيط، أقارن نفسي بالآخرين، أتذكر أصغر النظرات والابتسامات والكلمات لمن حاولت أن أكون صريحًا معهم، أفسر كل شيء بضوء سيء، أضحك بشراسة على محاولاتي 'أن أكون مثل الباقين' – وفجأة، في وسط ضحكي، أستسلم للحزن، أقع في كآبة سخيفة وأبدأ العملية كلها من جديد – باختصار، كنت أدور كالسناجب على عجلة.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "The man who has a conscience suffers whilst acknowledging his sin. That is his punishment.",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "الإنسان ذو الضمير يعاني وهو يعترف بخطيئته. تلك هي عقوبته.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "When reason fails, the devil helps!",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "عندما يفشل العقل، يساعد الشيطان!",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "I did not bow down to you, I bowed down to all the suffering of humanity.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "لم أنحنِ لك، بل انحنيت لكل معاناة الإنسانية.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "A hundred suspicions don't make a proof.",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "مئة شك لا تصنع دليلاً.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "We're always thinking of eternity as an idea that cannot be understood, something immense. But why must it be? What if, instead of all this, you suddenly find just a little room there, something like a village bath-house, grimy, and spiders in every corner, and that's all eternity is. Sometimes, you know, I can't help feeling that that's what it is.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "وتعرفون، كنت أسأل نفسي حينها: لماذا أنا غبي إلى هذا الحد بحيث إذا كان الآخرون أغبياء – وأنا أعرف أنهم كذلك – فلماذا لا أكون أحكم؟",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "And the more I drink the more I feel it. That's why I drink too. I try to find sympathy and feeling in drink.... I drink so that I may suffer twice as much!",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "هل تعتقدون أن جريمة صغيرة واحدة لن تمحى بآلاف الأعمال الطيبة؟",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "Power is given only to him who dares to stoop and take it ... one must have the courage to dare.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "الوجود وحده لم يكن كافيًا له أبدًا؛ كان يريد دائمًا المزيد. ربما كان فقط من قوة رغباته أنه اعتبر نفسه رجلاً يُسمح له بأكثر مما يُسمح للآخرين.",
+    author: "فيودور دوستويفسكي",
+    book: "الجريمة والعقاب"
   },
   {
-    quote: "The fear of appearances is the first symptom of impotence.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "حديقة للمشي فيها وفضاء لا نهائي للحلم فيه – ماذا يمكن أن يطلب أكثر؟ بعض الزهور عند قدميه وفوقه النجوم.",
+    author: "فيكتور هوغو",
+    book: "البؤساء"
   },
   {
-    quote: "Do you understand, sir, do you understand what it means when you have absolutely nowhere to turn? For every man must have somewhere to turn...",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "أمامه رأى طريقين، كلاهما مستقيم بنفس القدر؛ لكنه رأى اثنين؛ وهذا أرعبه – هو الذي لم يعرف في حياته سوى خط مستقيم واحد. ويا للألم المر، هذان الطريقان متناقضان.",
+    author: "فيكتور هوغو",
+    book: "البؤساء"
   },
   {
-    quote: "Man grows used to everything, the scoundrel!",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "وتذكروا الحقيقة التي قيلت ذات مرة: أن تحب شخصًا آخر هو أن ترى وجه الله.",
+    author: "هربرت كريتزمر",
+    book: "البؤساء"
   },
   {
-    quote: "Man has it all in his hands, and it all slips through his fingers from sheer cowardice.",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "طالما بقيت الجهل والبؤس على الأرض، فإن كتبًا مثل هذه ستكون ضرورية.",
+    author: "فيكتور هوغو",
+    book: "البؤساء"
   },
   {
-    quote: "Only to live, to live and live! Life, whatever it may be!",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "كان ماريوس وكوزيت في الظلام بالنسبة لبعضهما. لم يتحدثا، لم ينحنيا، لم يتعارفا؛ كانا يريان بعضهما؛ ومثل النجوم في السماء المفصولة بملايين الفراسخ، عاشا بالنظر إلى بعضهما.",
+    author: "فيكتور هوغو",
+    book: "البؤساء"
   },
   {
-    quote: "Talk nonsense, but talk your own nonsense, and I'll kiss you for it. To go wrong in one's own way is better than to go right in someone else's. In the first case you are a man, in the second you're no better than a bird.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "لا أحد يحب النور مثل الأعمى.",
+    author: "فيكتور هوغو",
+    book: "البؤساء"
   },
   {
-    quote: "Don't be overwise; fling yourself straight into life, without deliberation; don't be afraid - the flood will bear you to the bank and set you safe on your feet again.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "أريد شرابًا. أرغب في نسيان الحياة. الحياة اختراع بشع من شخص لا أعرفه. لا تدوم، وهي لا تصلح لشيء. تكسر رقبتك فقط بالعيش.",
+    author: "فيكتور هوغو",
+    book: "البؤساء"
   },
   {
-    quote: "Break what must be broken, once for all, that's all, and take the suffering on oneself.",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "وهل تعرف السيد ماريوس؟ أعتقد أنني كنت قليلاً في حبك.",
+    author: "فيكتور هوغو",
+    book: "البؤساء"
   },
   {
-    quote: "People with new ideas, people with the faintest capacity for saying something new, are extremely few in number, extraordinarily so, in fact.",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "الأخلاق هي الحقيقة في ازدهارها الكامل.",
+    author: "فيكتور هوغو",
+    book: "البؤساء"
   },
   {
-    quote: "You see I kept asking myself then: why am I so stupid that if others are stupid—and I know they are—yet I won't be wiser?",
-    author: "Fyodor Dostoyevsky",
-    book: "Crime and Punishment"
+    quote: "أنا غابة، وليلة من الأشجار الداكنة: لكن من لا يخاف ظلمتي، سيجد ضفافًا مليئة بالورود تحت سروي.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "What do you think, would not one tiny crime be wiped out by thousands of good deeds?",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "كلما ارتفعنا، بدنا أصغر لمن لا يستطيعون الطيران.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "Existence alone had never been enough for him; he had always wanted more. Perhaps it was only from the force of his desires that he had regarded himself as a man to whom more was permitted than to others.",
-    author: "Fyodor Dostoevsky",
-    book: "Crime and Punishment"
+    quote: "يجب أن تكون مستعدًا لحرق نفسك في لهيبك الخاص؛ كيف يمكنك أن تنهض من جديد إذا لم تصبح رمادًا أولاً؟",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "A garden to walk in and immensity to dream in--what more could he ask? A few flowers at his feet and above him the stars.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "الصمت أسوأ؛ كل الحقائق التي تُكتم تصبح سامة.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "Before him he saw two roads, both equally straight; but he did see two; and that terrified him--he who had never in his life known anything but one straight line. And, bitter anguish, these two roads were contradictory.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "الوحيد يمد يده بسرعة كبيرة لمن يصادفه.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "And remember, the truth that once was spoken: To love another person is to see the face of God.",
-    author: "Herbert Kretzmer",
-    book: "Les Misérables"
+    quote: "يرد الجميل للمعلم ردًا سيئًا إذا بقي دائمًا مجرد تلميذ.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "So long as ignorance and misery remain on earth, there should be a need for books such as this.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "هناك حكمة أكثر في جسدك من في فلسفتك الأعمق.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "Marius and Cosette were in the dark in regard to each other. They did not speak, they did not bow, they were not acquainted; they saw each other; and, like the stars in the sky separated by millions of leagues, they lived by gazing upon each other.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "كن من أنت!",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "Nobody loves the light like the blind man.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "أسوأ عدو قد تواجهه سيكون دائمًا نفسك؛ أنت تتربص بنفسك في الكهوف والغابات. أيها الوحيد، أنت تسير في طريق نحو نفسك!",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "I'd like a drink. I desire to forget life. Life is a hideous invention by somebody I don't know. It doesn't last, and it's good for nothing. You break your neck simply living.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "وبمجرد أن تستيقظ، ستبقى مستيقظًا إلى الأبد.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "And do you know Monsieur Marius? I believe I was a little in love with you.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "يجب أن تكون بحرًا لتستقبل تيارًا ملوثًا دون أن تصبح نجسًا.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "Morality is truth in full bloom.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "لكن الأمر مع الإنسان كما مع الشجرة. كلما سعى للارتفاع نحو الارتفاع والنور، كلما قاومت جذوره الأرض بقوة أكبر، نحو الأسفل، نحو الظلام، نحو العمق – نحو الشر.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "The book the reader has now before his eyes - from one end to the other, in its whole and in its details - is the march from evil to good, from injustice to justice, from the false to the true, from night to day, from appetite to conscience, from rottenness to life, from brutality to duty, from Hell to Heaven, from nothingness to God.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "الإنسان شيء يجب تجاوزه. الإنسان حبل مشدود بين الوحش والإنسان الأعلى — حبل فوق هاوية. ما هو عظيم في الإنسان أنه جسر وليس غاية.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "A doctor's door should never be closed, a priest's door should always be open.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "من يتسلق أعلى الجبال يضحك على كل المآسي، الحقيقية أو المتخيلة.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "Yes, the brutalities of progress are called revolutions. When they are over, this is recognised: that the human race has been harshly treated, but that it has advanced.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "لا راعٍ وقطيع واحد! الجميع يريد الشيء نفسه، الجميع متشابه: من يشعر باختلاف يذهب طوعًا إلى مصحة المجانين.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "People weighed down with troubles do not look back; they know only too well that misfortune stalks them.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "يجب أن يكون لديك فوضى داخلك لتلد نجمًا راقصًا.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "A breath of Paris preserves the soul.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "تنظر إلى الأعلى عندما ترغب في الارتقاء. وأنا أنظر إلى الأسفل لأنني مرتفع.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "To be free.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "أتغير بسرعة كبيرة: اليوم ينفي أمس. عندما أصعد غالبًا ما أقفز فوق الدرجات، ولا درجة تسامحني على ذلك.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "Javert, though hideous, was not ignoble.",
-    author: "Victor Hugo",
-    book: "Les Misérables"
+    quote: "تقول 'أنا' وتفتخر بهذه الكلمة. لكن أعظم من ذلك – رغم أنك لن تصدق – هو جسدك وذكاؤه العظيم، الذي لا يقول 'أنا' بل يؤدي 'أنا'.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "I am a forest, and a night of dark trees: but he who is not afraid of my darkness, will find banks full of roses under my cypresses.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
+    quote: "من يطيع، لا يسمع نفسه!",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "The higher we soar the smaller we appear to those who cannot fly.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
+    quote: "من كل ما كُتب أحب فقط ما كتبه الإنسان بدمه الخاص.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   },
   {
-    quote: "You must be ready to burn yourself in your own flame; how could you rise anew if you have not first become ashes?",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "Silence is worse; all truths that are kept silent become poisonous.",
-    author: "Friedrich Wilhelm Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "The lonely one offers his hand too quickly to whomever he encounters.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "One repays a teacher badly if one always remains nothing but a pupil.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "There is more wisdom in your body than in your deepest philosophy.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "Become who you are!",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "But the worst enemy you can meet will always be yourself; you lie in wait for yourself in caverns and forests. Lonely one, you are going the way to yourself!",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "And once you are awake, you shall remain awake eternally.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "One must be a sea, to receive a polluted stream without becoming impure.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "But it is the same with man as with the tree. The more he seeks to rise into the height and light, the more vigorously do his roots struggle earthword, downword, into the dark, the deep - into evil.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "Man is something that shall be overcome. Man is a rope, tied between beast and overman — a rope over an abyss. What is great in man is that he is a bridge and not an end.",
-    author: "Friedrich Wilhelm Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "He who climbs upon the highest mountains laughs at all tragedies, real or imaginary.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "No shepherd and one herd! Everybody wants the same, everybody is the same: whoever feels different goes voluntarily into a madhouse.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "You must have chaos within you to give birth to a dancing star.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "You look up when you wish to be exalted. And I look down because I am exalted.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "I change too quickly: my today refutes my yesterday. When I ascend I often jump over steps, and no step forgives me that.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "You say 'I' and you are proud of this word. But greater than this- although you will not believe in it - is your body and its great intelligence, which does not say 'I' but performs 'I'.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "He who obeys, does not listen to himself!",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "Of all that is written I love only what a man has written in his own blood.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
-  },
-  {
-    quote: "I have learned to walk: since then I have run. I have learned to fly: since then I do not have to be pushed in order to move. Now I am nimble, now I fly, now I see myself under myself, now a god dances within me.",
-    author: "Friedrich Nietzsche",
-    book: "Thus Spoke Zarathustra"
+    quote: "تعلم المشي: منذ ذلك الحين أركض. تعلمت الطيران: منذ ذلك الحين لا أحتاج إلى دفع لأتحرك. الآن أنا خفيف، الآن أطير، الآن أرى نفسي تحت نفسي، الآن يرقص إله داخلي.",
+    author: "فريدريك نيتشه",
+    book: "هكذا تكلم زرادشت"
   }
 ];
 export default function PhilosophyFeed() {
